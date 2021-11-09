@@ -10,14 +10,14 @@ public class KnapSack {
     private final Random rand = new Random();
     private final double Pc; //crossover [0.4->0.7] e.g. 0.6
     private final double Pm; //mutation [0.001->0.1] e.g. 0.015
-    int[][] pairs; //weight and values
     private final ArrayList<String> Population;
+    int[][] pairs; //weight and values
+    String bestSol;
     private ArrayList<String> Crossoverresult = new ArrayList<>();
     private ArrayList<Integer> Fitnesses = new ArrayList<>();
     private ArrayList<Double> Probability_Of_Fitnesses;
     private ArrayList<String> new_Population = new ArrayList<>();
     private double bestFitness;
-    String bestSol ;
 
 
     KnapSack(int numberOfItem, double knapsackSize, int[][] pairs) {
@@ -35,24 +35,19 @@ public class KnapSack {
         //call function to initialize population
         this.initializePopulation();
         //100 generation max
-        //System.out.println("Generation 1: "+this.Population);
-        //for (int i = 0; i < 99 &&(bestFitness < (0.9*knapsackSize)); i++) {
-        for (int i = 0; i < 99 ; i++) {
-            //System.out.print("Generation "+ (i + 2)+": " );
+        for (int i = 0; i < 99; i++) {
             Replacement();
         }
         System.out.println("Final solution: " + bestFitness);
-       Fitnesses.clear();
+        Fitnesses.clear();
         for (int i = 0; i < Population.size(); i++) {
             Fitnesses.add(Fitness(Population.get(i)));
         }
-
-        System.out.println(Fitnesses.indexOf((int)bestFitness));
-        bestSol=Population.get(Fitnesses.indexOf((int)bestFitness));
+        bestSol = Population.get(Fitnesses.indexOf((int) bestFitness));
         System.out.println(bestSol);
-        for (int i =0 ; i<bestSol.length();i++)
-            if (bestSol.charAt(i) == '1'){
-                System.out.println("item: "+ pairs[i][0]+" "+pairs[i][1]);
+        for (int i = 0; i < bestSol.length(); i++)
+            if (bestSol.charAt(i) == '1') {
+                System.out.println("item: " + pairs[i][0] + " " + pairs[i][1]);
             }
 
     }
@@ -72,7 +67,7 @@ public class KnapSack {
                 if (RemaingWeight >= 0 || gene == 0) {
                     chromosome += gene;
                 } else {
-                    chromosome += "0".repeat(chromosomeLength - j-1);
+                    chromosome += "0".repeat(chromosomeLength - j - 1);
                 }
             }
             Population.add(chromosome);
@@ -192,6 +187,6 @@ public class KnapSack {
         for (int i = 0; i < population_size; i++) {
             Fitnesses.add(Fitness(Population.get(i)));
         }
-        bestFitness=Collections.max(Fitnesses);
+        bestFitness = Collections.max(Fitnesses);
     }
 }
