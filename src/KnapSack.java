@@ -44,7 +44,6 @@ public class KnapSack {
             Fitnesses.add(Fitness(Population.get(i)));
         }
         System.out.println(Collections.max(Fitnesses));
-
         bestSol = Population.get(Fitnesses.indexOf(Collections.max(Fitnesses)));
         System.out.println(bestSol);
         for (int i = 0; i < bestSol.length(); i++)
@@ -62,16 +61,10 @@ public class KnapSack {
             //generate gene randomly
             for (int j = 0; j < this.chromosomeLength; j++) {
                 int gene = (int) Math.round(Math.random());
-                // to achieve constraint if we pick an item (1)
-                // it should be in weight  capacity
-                if (gene == 1)
-                    RemaingWeight = RemaingWeight - pairs[j][0];
-                if (RemaingWeight >= 0 || gene == 0) {
-                    chromosome += gene;
-                } else {
-                    chromosome += "0".repeat(chromosomeLength - j - 1);
-                }
+                chromosome += gene;
             }
+            if(Fitness(chromosome)==-1)
+                continue;
             Population.add(chromosome);
         }
     }
@@ -80,8 +73,8 @@ public class KnapSack {
     private int Fitness(String chromosome) {
         int fit = 0;
         int weight = 0;
-        for (int j = 0; j < chromosome.length(); j++) {
-            if (chromosome.charAt(j) == '1') {
+        for (int j = 0; j < this.chromosomeLength; j++) {
+            if (chromosome.charAt(j) == 49) {
                 //value
                 weight += pairs[j][0];
                 fit += pairs[j][1];
@@ -119,8 +112,7 @@ public class KnapSack {
             double r = Math.random();//->[0,1[
             if (r <= this.Pm) {
                 //if change from 0 -> 1 check  if it in weight
-                //System.out.println(chromosomeLength);
-                changeBit(i, chromosome);
+                chromosome=changeBit(i, chromosome);
                 if (Fitness(chromosome) == -1) {
                     chromosome = chromosome2;
                 }
@@ -130,17 +122,17 @@ public class KnapSack {
     }
 
     private String changeBit(int idx, String str) {
-        String returnStr = "";
+        String s = "";
         for (int i = 0; i < str.length(); i++) {
             if (i == idx) {
                 if (str.charAt(i) == 49)
-                    returnStr += 0;
+                    s += 0;
                 else
-                    returnStr += 1;
+                    s += 1;
             } else
-                returnStr += str.charAt(i);
+                s += str.charAt(i);
         }
-        return returnStr;
+        return s;
     }
 
     //Selection
