@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class KnapSack {
     //problem parameters
@@ -10,6 +11,10 @@ public class KnapSack {
     private int population_size;
     private ArrayList<String> Population;
     private ArrayList<String> Crossoverresult;
+    private ArrayList<Integer> Fitnesses;
+    private ArrayList<Double> Probability_Of_Fitnesses;
+    private Random rand = new Random();
+    private ArrayList<String> new_Population;
     private double Pc; //crossover [0.4->0.7] e.g. 0.6
     private double Pm; //mutation [0.001->0.1] e.g. 0.015
 
@@ -105,5 +110,39 @@ public class KnapSack {
             return true;
         }
         return false;
+    }
+    //Selection
+    private ArrayList<String> Roulette_Wheel_Selection(ArrayList<String> Population) {
+        Fitnesses=null;
+        Probability_Of_Fitnesses=null;
+        int sumOfFitnesses=0;
+        for(int i=0;i<Population.size();i++) {
+            Fitnesses.set(i, Fitness(Population.get(i)));
+            sumOfFitnesses += Fitness(Population.get(i));
+        }
+        for(int i=0;i<Fitnesses.size();i++)
+            Probability_Of_Fitnesses.set(i, (double)(Fitnesses.get(i)/sumOfFitnesses));
+
+        for(int i=Probability_Of_Fitnesses.size();i>=0;i--) {
+            double sumofprob=0;
+            for(int j=i;j>=0;j--)
+                sumofprob+=Probability_Of_Fitnesses.get(j);
+            Probability_Of_Fitnesses.set(i,sumofprob );
+        }
+        //-2 de lsa h7ot rate badalha
+        for(int i=0;i<(Population.size()-2);i++) {
+            double r1=rand.nextDouble();
+            for(i=1;i<Probability_Of_Fitnesses.size();i++) {
+                if(r1 == Probability_Of_Fitnesses.get(0) && r1>=0) {
+                    new_Population.add(Population.get(i));
+                    break;
+                }
+                else if(r1<=Probability_Of_Fitnesses.get(i)&& r1>=Probability_Of_Fitnesses.get(i-1)) {
+                    new_Population.add(Population.get(i));
+                    break;
+                }
+            }
+        }
+        return new_Population;
     }
 }
