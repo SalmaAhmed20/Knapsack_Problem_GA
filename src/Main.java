@@ -9,7 +9,7 @@ public class Main {
          * initialize population
          * Constraint to each chromosome <= knapsack size
          * Maximize benefit (fitness)*/
-
+        System.out.println(  "01011".replace("01011".charAt(1), '0'));
 //        CrossOver("10100", "01011");
 
     }
