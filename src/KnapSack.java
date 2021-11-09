@@ -18,6 +18,7 @@ public class KnapSack {
     private ArrayList<Double> Probability_Of_Fitnesses;
     private ArrayList<String> new_Population;
 
+
     KnapSack(int numberOfItem, double knapsackSize, int[][] pairs) {
         this.numberOfItem = numberOfItem;
         this.chromosomeLength = numberOfItem;
@@ -100,11 +101,10 @@ public class KnapSack {
                 //if change from 0 -> 1 check  if it in weight
                 RemaingWeight = RemaingWeight - pairs[i][0];
                 if (RemaingWeight >= 0 && chromosome.charAt(i) == '0') {
-                    chromosome.replace(chromosome.charAt(i), '1');
-                } else {
+                    chromosome=chromosome.substring(0,i)+'1'+chromosome.substring(i+1);
                     RemaingWeight = RemaingWeight + pairs[i][0];
                     if (chromosome.charAt(i) == '1') {
-                        chromosome.replace(chromosome.charAt(i), '0');
+                        chromosome=chromosome.substring(0,i)+'0'+chromosome.substring(i+1);
 
                     }
                 }
