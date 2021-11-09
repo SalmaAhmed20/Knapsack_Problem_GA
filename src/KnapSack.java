@@ -5,7 +5,7 @@ import java.util.Random;
 public class KnapSack {
     private final double knapsackSize;
     //GA parameter
-    private final int chromosomeLength; // number of items
+    private final int chromosomeLength; //= number of items
     private final int population_size;
     private final Random rand = new Random();
     private final double Pc; //crossover [0.4->0.7] e.g. 0.6
@@ -35,15 +35,22 @@ public class KnapSack {
         //call function to initialize population
         this.initializePopulation();
         //100 generation max
+        //System.out.println("Generation 1: "+this.Population);
+        //for (int i = 0; i < 99 &&(bestFitness < (0.9*knapsackSize)); i++) {
         for (int i = 0; i < 99 ; i++) {
+            //System.out.print("Generation "+ (i + 2)+": " );
             Replacement();
         }
         System.out.println("Final solution: " + bestFitness);
+        System.out.println(Fitnesses);
+        System.out.println(Fitnesses.indexOf((int)bestFitness));
         bestSol=Population.get(Fitnesses.indexOf((int)bestFitness));
+        System.out.println(bestSol);
         for (int i =0 ; i<bestSol.length();i++)
             if (bestSol.charAt(i) == '1'){
                 System.out.println("item: "+ pairs[i][0]+" "+pairs[i][1]);
             }
+
     }
 
     private void initializePopulation() {

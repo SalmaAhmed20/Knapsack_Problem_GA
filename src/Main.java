@@ -20,27 +20,26 @@ public class Main {
         System.out.println("Case 2 ");new KnapSack(5,28,pair2);
         ArrayList<String> lines=new ArrayList<>();
 
-//        File file = new File("input_example.txt");
-//        FileReader fr = null;   //reads the file
-//
-//            fr = new FileReader(file);
-//        BufferedReader br = new BufferedReader(fr);  //creates a buffering character input stream
-//        StringBuffer sb = new StringBuffer();    //constructs a string buffer with no characters
-//        String line = "";
-//        while (true) {
-//
-//            if (!((line = br.readLine()) != null)) break;
-//            sb.append(line);      //appends line to string buffer
-//            sb.append("\n");//line feed
-//            if(!line.equals("\n\n"))
-//                lines.add(line);
-//        }
-//        fr.close();    //closes the stream and release the resources
-//        System.out.println("Contents of File: ");
-//        //System.out.println(sb.toString());//returns a string that textually represents the object
-//        System.out.println(lines);
-        //System.out.println(lines.get(1).replace("\\s+","111"));
-        //System.out.println(lines.get(1));
+        File file = new File("input_example.txt");
+        FileReader fr = null;   //reads the file
+
+            fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);  //creates a buffering character input stream
+        String line = "";
+        while (true) {
+
+            if (!((line = br.readLine()) != null)) break;
+            if(!line.isEmpty())
+                lines.add(line);
+        }
+        fr.close();    //closes the stream and release the resources
+        System.out.println(lines);
+       int numOfTstCases = Integer.parseInt(lines.get(0));
+
+        for (int i = 0; i <numOfTstCases ; i++) {
+            System.out.println("Case "+(i+1)+ ": ");
+
+        }
 
     }
 
