@@ -49,6 +49,47 @@ public class KnapSack {
             Population.add(chromosome);
         }
     }
+    //Fitness
+    private int Fitness(String chromosome)
+    {
+        int total = 0;
+        for(int j=0; j<chromosome.length(); j++)
+        {
+            if(chromosome.charAt(j) == '1')
+            {
+                total+= pairs[j][0];
+            }
+        }
+        return  total ;
+    }
+    //Mutation
+    private void Mutation(String chromosome){
+
+        double RemaingWeight=  this.knapsackSize;
+        for(int i=0;i<chromosome.length();i++)
+        {
+            double r2=Math.random();//->[0,1[
+            //we generate r2 before to performance
+            if(r2 <= this.Pm){
+                // to check it in weight  capacity
+                RemaingWeight=RemaingWeight-pairs[i][0];
+
+                if (RemaingWeight >= 0&&chromosome.charAt(i)=='0') {
+                    chromosome.replace(chromosome.charAt(i),'1');
+                }
+                else
+                {
+                    RemaingWeight=RemaingWeight+pairs[i][0];
+                    if (chromosome.charAt(i)=='1') {
+                    chromosome.replace(chromosome.charAt(i),'0');
+                }
+                }
+            }
+
+        }
+
+
+    }
     //Crossover
     private boolean CrossOver(String chromosome1, String chromosome2){
         String offString1,offString2;
