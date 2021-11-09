@@ -10,9 +10,9 @@ public class KnapSack {
     private final Random rand = new Random();
     private final double Pc; //crossover [0.4->0.7] e.g. 0.6
     private final double Pm; //mutation [0.001->0.1] e.g. 0.015
-    private ArrayList<String> Population;
     int[][] pairs; //weight and values
     String bestSol;
+    private ArrayList<String> Population;
     private ArrayList<String> Crossoverresult = new ArrayList<>();
     private ArrayList<Integer> Fitnesses = new ArrayList<>();
     private ArrayList<Double> Probability_Of_Fitnesses;
@@ -69,7 +69,7 @@ public class KnapSack {
                 if (RemaingWeight >= 0 || gene == 0) {
                     chromosome += gene;
                 } else {
-                    chromosome += "0".repeat(chromosomeLength - j );
+                    chromosome += "0".repeat(chromosomeLength - j - 1);
                 }
             }
             Population.add(chromosome);
@@ -114,23 +114,33 @@ public class KnapSack {
     //Mutation
     private String Mutation(String chromosome) {
         double RemaingWeight = this.knapsackSize;
+        String chromosome2 = chromosome;
         for (int i = 0; i < chromosome.length(); i++) {
             double r = Math.random();//->[0,1[
             if (r <= this.Pm) {
                 //if change from 0 -> 1 check  if it in weight
                 //System.out.println(chromosomeLength);
-
-                if ( chromosome.charAt(i) == '0') {
-                    chromosome = chromosome.substring(0, i) + '1' + chromosome.substring(i + 1);
-                    if (chromosome.charAt(i) == '1') {
-                        chromosome = chromosome.substring(0, i) + '0' + chromosome.substring(i + 1);
-
-                    }
+                changeBit(i, chromosome);
+                if (Fitness(chromosome) == -1) {
+                    chromosome = chromosome2;
                 }
             }
-
         }
         return chromosome;
+    }
+
+    private String changeBit(int idx, String str) {
+        String returnStr = "";
+        for (int i = 0; i < str.length(); i++) {
+            if (i == idx) {
+                if (str.charAt(i) == 49)
+                    returnStr += 0;
+                else
+                    returnStr += 1;
+            } else
+                returnStr += str.charAt(i);
+        }
+        return returnStr;
     }
 
     //Selection
