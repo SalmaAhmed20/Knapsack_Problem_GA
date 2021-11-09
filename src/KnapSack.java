@@ -156,9 +156,7 @@ public class KnapSack {
         }
         // we will select two chromosomes then crossover them
         for (int i = 0; i < 2; i++) {
-            //r1 random number 0 -> 1
             double r1 = rand.nextDouble();
-
             for (int j = 1; j < Probability_Of_Fitnesses.size(); j++) {
                 if (r1 == Probability_Of_Fitnesses.get(0) || r1 >= 0) {
                     new_Population.add(Population.get(0));
