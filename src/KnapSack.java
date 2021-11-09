@@ -42,14 +42,18 @@ public class KnapSack {
             Replacement();
         }
         System.out.println("Final solution: " + bestFitness);
-        //System.out.println(Fitnesses);
-        //System.out.println(Fitnesses.indexOf((int)bestFitness));
-        //bestSol=Population.get(Fitnesses.indexOf((int)bestFitness));
-//        System.out.println(bestSol);
-//        for (int i =0 ; i<bestSol.length();i++)
-//            if (bestSol.charAt(i) == '1'){
-//                System.out.println("item: "+ pairs[i][0]+" "+pairs[i][1]);
-//            }
+       Fitnesses.clear();
+        for (int i = 0; i < Population.size(); i++) {
+            Fitnesses.add(Fitness(Population.get(i)));
+        }
+
+        System.out.println(Fitnesses.indexOf((int)bestFitness));
+        bestSol=Population.get(Fitnesses.indexOf((int)bestFitness));
+        System.out.println(bestSol);
+        for (int i =0 ; i<bestSol.length();i++)
+            if (bestSol.charAt(i) == '1'){
+                System.out.println("item: "+ pairs[i][0]+" "+pairs[i][1]);
+            }
 
     }
 
