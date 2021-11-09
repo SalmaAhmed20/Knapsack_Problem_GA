@@ -38,11 +38,13 @@ public class KnapSack {
         for (int i = 0; i < 99; i++) {
             Replacement();
         }
-        System.out.println("Final solution: " + bestFitness);
+        System.out.println(bestFitness);
         Fitnesses.clear();
         for (int i = 0; i < Population.size(); i++) {
             Fitnesses.add(Fitness(Population.get(i)));
         }
+        System.out.println(Population);
+        System.out.println(Fitnesses);
         bestSol = Population.get(Fitnesses.indexOf((int) bestFitness));
         System.out.println(bestSol);
         for (int i = 0; i < bestSol.length(); i++)
@@ -188,5 +190,7 @@ public class KnapSack {
             Fitnesses.add(Fitness(Population.get(i)));
         }
         bestFitness = Collections.max(Fitnesses);
+        new_Population.clear();
+        Fitnesses.clear();
     }
 }
