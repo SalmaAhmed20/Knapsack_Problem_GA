@@ -35,10 +35,23 @@ public class Main {
         fr.close();    //closes the stream and release the resources
         System.out.println(lines);
        int numOfTstCases = Integer.parseInt(lines.get(0));
+       int i=1; //counter
 
-        for (int i = 0; i <numOfTstCases ; i++) {
-            System.out.println("Case "+(i+1)+ ": ");
+        while(numOfTstCases !=0 ){
+            int [][] Pairs=null;
+            int numberofitems=0;
+            int wight=0;
+            System.out.println("Case "+(i)+ ": ");
+            numberofitems= Integer.parseInt(lines.get(i++));
+            wight = Integer.parseInt(lines.get(i++));
 
+                    for(int x=0;x<numberofitems;x++){
+                        String parts[]= lines.get(i++).split(" ",2);
+                            Pairs[x][0]= Integer.parseInt(parts[0]);
+                            Pairs[x][1]= Integer.parseInt(parts[1]);
+                    }
+            new KnapSack(numberofitems,wight,Pairs);
+                numOfTstCases--;
         }
 
     }
