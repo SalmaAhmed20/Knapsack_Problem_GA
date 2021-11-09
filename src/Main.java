@@ -9,24 +9,12 @@ public class Main {
          * initialize population
          * Constraint to each chromosome <= knapsack size
          * Maximize benefit (fitness)*/
-        String n="01011";
-        System.out.println(n=n.substring(0,1)+'0'+n.substring(2));
-//        CrossOver("10100", "01011");
+
+        int[][] pairs={{4,1},{7,7},{1,22},{3,23},{3,6}};
+        System.out.println("Case 1 ");new KnapSack(5,14,pairs);
+
+        int[][] pair2={{10,27},{9,27},{8,12},{8,28},{3,23}};
+        System.out.println("Case 2 ");new KnapSack(5,28,pair2);
 
     }
-//Test Crossover
-//    static void CrossOver(String chromosome1, String chromosome2) {
-//        String offString1, offString2;
-//        double r2 = Math.random();
-//        if (r2 <= 0.6) {
-//            //Math.floor(Math.random()*(max-min+1)+min)
-//            int CrossOverPoint = (int) Math.floor(Math.random() * ((5 - 1) - 1 + 1) + 1);//->[1,l-1]
-//            System.out.println(CrossOverPoint);
-//            offString1 = chromosome1.substring(0, CrossOverPoint) + chromosome2.substring(CrossOverPoint);
-//            offString2 = chromosome2.substring(0, CrossOverPoint) + chromosome1.substring(CrossOverPoint);
-//            System.out.println(offString1 + "," + offString2);
-//
-//        }
-//
-//    }
 }
