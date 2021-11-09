@@ -5,7 +5,7 @@ import java.util.Random;
 public class KnapSack {
     private final double knapsackSize;
     //GA parameter
-    private final int chromosomeLength; //= number of items
+    private final int chromosomeLength; // number of items
     private final int population_size;
     private final Random rand = new Random();
     private final double Pc; //crossover [0.4->0.7] e.g. 0.6
@@ -17,6 +17,7 @@ public class KnapSack {
     private ArrayList<Double> Probability_Of_Fitnesses;
     private ArrayList<String> new_Population = new ArrayList<>();
     private double bestFitness;
+    String bestSol ;
 
 
     KnapSack(int numberOfItem, double knapsackSize, int[][] pairs) {
@@ -34,13 +35,15 @@ public class KnapSack {
         //call function to initialize population
         this.initializePopulation();
         //100 generation max
-        System.out.println("Generation 1: "+this.Population);
-        //for (int i = 0; i < 99 &&(bestFitness < (0.9*knapsackSize)); i++) {
         for (int i = 0; i < 99 ; i++) {
-            System.out.print("Generation "+ (i + 2)+": " );
             Replacement();
         }
         System.out.println("Final solution: " + bestFitness);
+        bestSol=Population.get(Fitnesses.indexOf((int)bestFitness));
+        for (int i =0 ; i<bestSol.length();i++)
+            if (bestSol.charAt(i) == '1'){
+                System.out.println("item: "+ pairs[i][0]+" "+pairs[i][1]);
+            }
     }
 
     private void initializePopulation() {
@@ -174,36 +177,10 @@ public class KnapSack {
             }
             Crossoverresult.clear();
         }
-        System.out.println(this.Population);
+        //System.out.println(this.Population);
         for (int i = 0; i < population_size; i++) {
             Fitnesses.add(Fitness(Population.get(i)));
         }
         bestFitness=Collections.max(Fitnesses);
     }
 }
-
-
-//    private String getBestSolution() {
-//        double bestFit = -1;
-//        String bestSol = null;
-//
-//        // Iterate over all the generation
-//        for (String chromsome : this.Population) {
-//            double newFit = Fitness(chromsome);
-//            if (newFit != -1) {
-//                // If a better fit found
-//                // update bestSol variable
-//                if (newFit >= bestFit) {
-//                    bestSol = chromsome;
-//                    bestFit = newFit;
-//                }
-//            }
-//        }
-//        setFitness(bestFit);
-//        // Return the best candidate solution
-//        return bestSol;
-//    }
-//
-//    private void setFitness(double bestFit) {
-//        bestFitness=bestFit;
-//    }
