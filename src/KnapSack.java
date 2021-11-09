@@ -10,14 +10,14 @@ public class KnapSack {
     private final Random rand = new Random();
     private final double Pc; //crossover [0.4->0.7] e.g. 0.6
     private final double Pm; //mutation [0.001->0.1] e.g. 0.015
-    private final ArrayList<String> Population;
+    private ArrayList<String> Population;
     int[][] pairs; //weight and values
     String bestSol;
     private ArrayList<String> Crossoverresult = new ArrayList<>();
     private ArrayList<Integer> Fitnesses = new ArrayList<>();
     private ArrayList<Double> Probability_Of_Fitnesses;
     private ArrayList<String> new_Population = new ArrayList<>();
-    private double bestFitness;
+    private int bestFitness;
 
 
     KnapSack(int numberOfItem, double knapsackSize, int[][] pairs) {
@@ -38,14 +38,14 @@ public class KnapSack {
         for (int i = 0; i < 99; i++) {
             Replacement();
         }
-        System.out.println(bestFitness);
+
         Fitnesses.clear();
         for (int i = 0; i < Population.size(); i++) {
             Fitnesses.add(Fitness(Population.get(i)));
         }
-        System.out.println(Population);
-        System.out.println(Fitnesses);
-        bestSol = Population.get(Fitnesses.indexOf((int) bestFitness));
+        System.out.println(Collections.max(Fitnesses));
+
+        bestSol = Population.get(Fitnesses.indexOf(Collections.max(Fitnesses)));
         System.out.println(bestSol);
         for (int i = 0; i < bestSol.length(); i++)
             if (bestSol.charAt(i) == '1') {
@@ -69,7 +69,7 @@ public class KnapSack {
                 if (RemaingWeight >= 0 || gene == 0) {
                     chromosome += gene;
                 } else {
-                    chromosome += "0".repeat(chromosomeLength - j - 1);
+                    chromosome += "0".repeat(chromosomeLength - j );
                 }
             }
             Population.add(chromosome);
@@ -118,10 +118,10 @@ public class KnapSack {
             double r = Math.random();//->[0,1[
             if (r <= this.Pm) {
                 //if change from 0 -> 1 check  if it in weight
-                RemaingWeight = RemaingWeight - pairs[i][0];
-                if (RemaingWeight >= 0 && chromosome.charAt(i) == '0') {
+                //System.out.println(chromosomeLength);
+
+                if ( chromosome.charAt(i) == '0') {
                     chromosome = chromosome.substring(0, i) + '1' + chromosome.substring(i + 1);
-                    RemaingWeight = RemaingWeight + pairs[i][0];
                     if (chromosome.charAt(i) == '1') {
                         chromosome = chromosome.substring(0, i) + '0' + chromosome.substring(i + 1);
 
@@ -185,12 +185,5 @@ public class KnapSack {
             }
             Crossoverresult.clear();
         }
-        //System.out.println(this.Population);
-        for (int i = 0; i < population_size; i++) {
-            Fitnesses.add(Fitness(Population.get(i)));
-        }
-        bestFitness = Collections.max(Fitnesses);
-        new_Population.clear();
-        Fitnesses.clear();
     }
 }

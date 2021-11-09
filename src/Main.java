@@ -1,8 +1,6 @@
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -17,44 +15,34 @@ public class Main {
          * Maximize benefit (fitness)
          */
 
-        int[][] pairs = {{4, 1}, {7, 7}, {1, 22}, {3, 23}, {3, 6}};
-        System.out.println("Case 1 ");
-        new KnapSack(5, 14, pairs);
 
-        int[][] pair2 = {{10, 27}, {9, 27}, {8, 12}, {8, 28}, {3, 23}};
-        System.out.println("Case 2 ");
-        new KnapSack(5, 28, pair2);
-        ArrayList<String> lines = new ArrayList<>();
+        File inputFile = new File("input_example.txt");
+        Scanner scanner = new Scanner(inputFile);
+        int numberOfTestcases = scanner.nextInt();
+        for (int i = 0; i < numberOfTestcases; i++) {
+            int numofitem = scanner.nextInt();
+            int capacity = scanner.nextInt();
+//            System.out.println(numofitem + "   " + capacity);
+            int[][] items = new int[numofitem][2];
 
-        File file = new File("input_example.txt");
-        FileReader fr = null;   //reads the file
-
-        fr = new FileReader(file);
-        BufferedReader br = new BufferedReader(fr);  //creates a buffering character input stream
-        String line = "";
-        while (true) {
-
-            if (!((line = br.readLine()) != null)) break;
-            if (!line.isEmpty())
-                lines.add(line);
-        }
-        fr.close();    //closes the stream and release the resources
-//        System.out.println(lines);
-//        int numOfTstCases = Integer.parseInt(lines.get(0));
-//        for (int i = 0; i < numOfTstCases; i++) {
-//            System.out.print("Case " + (i + 1) + ": ");
-//            for (int j = 1; j <lines.size() ; ) {
-//                int numItem = Integer.parseInt(lines.get(j));
-//                int capacity = Integer.parseInt(lines.get(++j));
-//                System.out.println("cap"+capacity);
-//                String []item;
-//                for (int k = j+1; k <j+numItem ; k++) {
-//                    item=lines.get(k).split(" ");
-//                    System.out.println(item[0]);
+            for (int j = 0; j < numofitem; j++) {
+                for (int k = 0; k < 2; k++) {
+                    items[j][k] = scanner.nextInt();
+                }
+            }
+//            for (int j = 0; j < numofitem; j++) {
+//                for (int k = 0; k < 2; k++) {
+//                    System.out.print(items[j][k] + " ");
 //                }
+//                System.out.println("\n");
 //            }
-//        }
+            System.out.println("Number of item : "+numofitem);
+            System.out.print("Case " + (i + 1) + ": ");
+
+            new KnapSack(numofitem, capacity, items);
+            System.out.println("------------------------------------------------------------");
+        }
+        scanner.close();
 
     }
-
 }
