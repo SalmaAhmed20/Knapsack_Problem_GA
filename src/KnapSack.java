@@ -57,7 +57,6 @@ public class KnapSack {
         //Make pop size chromosome
         for (int i = 0; i < this.population_size; i++) {
             String chromosome = "";
-            double RemaingWeight = this.knapsackSize;
             //generate gene randomly
             for (int j = 0; j < this.chromosomeLength; j++) {
                 int gene = (int) Math.round(Math.random());
@@ -158,21 +157,15 @@ public class KnapSack {
         for (int i = 0; i < 2; i++) {
             double r1 = rand.nextDouble();
             for (int j = 1; j < Probability_Of_Fitnesses.size(); j++) {
-                if (r1 == Probability_Of_Fitnesses.get(0) || r1 >= 0) {
-                    new_Population.add(Population.get(0));
-                    Population.remove(0);//select it
-                    break;
-                } else if (r1 <= Probability_Of_Fitnesses.get(j) && r1 > Probability_Of_Fitnesses.get(j - 1)) {
-                    new_Population.add(Population.get(j));
-                    Population.remove(j);
-                    break;
-                }
+                new_Population.add(Population.get(0));
+                Population.remove(0);//select it
+                break;
             }
         }
     }
 
     private void Replacement() {
-        for (int i = 1; i < this.population_size; i++) {
+        for (int i = 1; i < this.population_size ; i++) {
             new_Population.clear();
             Fitnesses.clear();
             Roulette_Wheel_Selection();
